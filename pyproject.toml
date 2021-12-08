@@ -1,0 +1,11 @@
+[tool.black]
+target-version = ['py36', 'py37', 'py38', 'py39']
+line-length = 80
+include = '\.pyi?$'
+exclude = '''
+/(
+   \.git
+  | build
+  | lib
+)/
+'''

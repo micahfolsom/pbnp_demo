@@ -6,3 +6,8 @@ Inside, there's a sub-module, `pbnp_cpp`, which contains the C++ code.
 
 The test code is written to generate a sizeable chunk of data and benchmark
 passing it from C++ to python via different mechanisms.
+
+## Instructions ##
+
+Install with `pip install --user .` from the base of this repo. Test with
+`python scripts/test.py`

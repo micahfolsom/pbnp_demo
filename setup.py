@@ -86,7 +86,7 @@ with open("README.md", "r") as f:
 
 setup(
     name="pbnp",
-    version="0.0.0",
+    version="0.1.0",
     author="Micah Folsom",
     author_email="micahfolsom@gmail.com",
     description="pybind11 with numpy demo project",
@@ -100,7 +100,7 @@ setup(
         "Operating System :: POSIX :: Linux",
     ],
     ext_modules=[CMakeExtension("pbnp/pbnp_cpp")],
-    python_requires=">=3.6",
+    python_requires=">=3.7",
     cmdclass=dict(build_ext=CMakeBuild),
     include_package_data=True,
     zip_safe=False,

@@ -9,14 +9,11 @@ class PYGenerator(object):
     def __init__(self, n=100000):
         self.generator = Generator(n)
 
-    def get_events_raw(self):
-        return self.generator.getEventsRawPtr()
-
     def get_events_vec(self):
         return self.generator.getEventsVector()
 
-    # def get_events_numpy(self):
-    #     return self.generator.getEventsNumpy()
+    def get_events_numpy(self):
+        return self.generator.getEventsNumpy()
 
 
 def run_test():

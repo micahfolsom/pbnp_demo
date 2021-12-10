@@ -55,3 +55,16 @@ print(data2)
 print()
 for k in ("id", "timestamp", "value", "status"):
     print(f"All equal for {k}?: {np.all(data[k] == data2[k])}")
+
+# Test the pass-through functions
+start = tstamp()
+pyg = pbnp.PYGenerator(N)
+print(f"\nTook {tstamp() - start} sec to generate data with passthrough")
+
+start = tstamp()
+data3 = pyg.get_events_numpy()
+print(
+    f"\nTook {tstamp() - start} sec to get numpy structured array directly"
+    " using the passthrough"
+)
+print(data3)

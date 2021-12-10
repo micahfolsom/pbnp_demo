@@ -1,3 +1,4 @@
 build/
-src/pbnp.egg-info
+src/pbnp.egg-info/
 src/pbnp/pbnp_cpp.cpython-38-x86_64-linux-gnu.so
+src/pbnp/__pycache__/

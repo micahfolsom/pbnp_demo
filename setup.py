@@ -5,6 +5,7 @@ import re
 import sys
 import platform
 import subprocess
+import site
 
 from distutils.version import LooseVersion
 from setuptools import setup, Extension
@@ -13,6 +14,11 @@ from setuptools.command.build_ext import build_ext
 """
 Modified from https://www.benjack.io/2017/06/12/python-cpp-tests.html
 """
+
+# Enables --editable install with --user
+# Also prevents pyproject.toml from breaking "pip install -e ."
+# https://github.com/pypa/pip/issues/7953
+site.ENABLE_USER_SITE = "--user" in sys.argv[1:]
 
 
 class CMakeExtension(Extension):

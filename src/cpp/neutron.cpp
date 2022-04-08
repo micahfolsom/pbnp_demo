@@ -11,9 +11,9 @@ namespace pbnp {
   }
 
   void Neutron::retrieve(vector<Neutron> const& children, vector<Neutron>& output) {
-    for (size_t i=0;i < children.size();++i) {
-      output.emplace_back(children[i]);
-      retrieve(children[i].get_children(), output);
+    for (auto const& child : children) {
+      output.emplace_back(child);
+      retrieve(child.get_children(), output);
     }
     return;
   }

@@ -13,3 +13,5 @@ add_subdirectory(../../lib/pybind11 pybind11)
 ## Tests
 add_executable(test ${PROJECT_SOURCE_DIR}/tests/test.cpp ${CPP_SOURCES})
 target_link_libraries(test pybind11::embed)
+add_executable(test_neutron ${PROJECT_SOURCE_DIR}/tests/test_neutron.cpp ${CPP_SOURCES})
+target_link_libraries(test_neutron pybind11::embed)

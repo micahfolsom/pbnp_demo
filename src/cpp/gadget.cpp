@@ -42,8 +42,15 @@ pybind11::array_t<int> Gadget::get_data() const {
 }
 
 void Gadget::set_data(pybind11::array_t<int> data) {
-  auto ptr = static_cast<int*>(data.request().ptr);
-  for (size_t i = 0; i < m_data2D.size(); ++i) {
+  pybind11::buffer_info buf = data.request();
+  if (buf.shape[0] != m_data.size()) {
+    stringstream msg;
+    msg << "Gadget::set_data(): invalid size for axis 0. Got ";
+    msg << buf.shape[0] << ", but expected " << m_data.size() << ".";
+    throw std::invalid_argument(msg.str());
+  }
+  auto ptr = static_cast<int*>(buf.ptr);
+  for (size_t i = 0; i < m_data.size(); ++i) {
     m_data[i] = ptr[i];
   }
   return;
@@ -64,7 +71,18 @@ pybind11::array_t<int> Gadget::get_data_2d() const {
 }
 
 void Gadget::set_data_2d(pybind11::array_t<int> data) {
-  auto ptr = static_cast<int*>(data.request().ptr);
+  int dsize[2] = {(int)m_data2D.size(), (int)m_data2D[0].size()};
+  pybind11::buffer_info buf = data.request();
+  for (int iax = 0; iax < 2; ++iax) {
+    if (buf.shape[iax] != dsize[iax]) {
+      stringstream msg;
+      msg << "Gadget::set_data(): invalid size for axis " << iax;
+      msg << ". Got " << buf.shape[iax] << ", but expected ";
+      msg << dsize[iax] << ".";
+      throw std::invalid_argument(msg.str());
+    }
+  }
+  auto ptr = static_cast<int*>(buf.ptr);
   for (size_t i = 0; i < m_data2D.size(); ++i) {
     for (size_t j = 0; j < m_data2D[0].size(); ++j) {
       // Row-major
@@ -96,7 +114,17 @@ pybind11::array_t<int> Gadget::get_data_3d() const {
 void Gadget::set_data_3d(pybind11::array_t<int> data) {
   int dsize[3] = {(int)m_data3D.size(), (int)m_data3D[0].size(),
                   (int)m_data3D[0][0].size()};
-  auto ptr = static_cast<int*>(data.request().ptr);
+  pybind11::buffer_info buf = data.request();
+  for (int iax = 0; iax < 2; ++iax) {
+    if (buf.shape[iax] != dsize[iax]) {
+      stringstream msg;
+      msg << "Gadget::set_data(): invalid size for axis " << iax;
+      msg << ". Got " << buf.shape[iax] << ", but expected ";
+      msg << dsize[iax] << ".";
+      throw std::invalid_argument(msg.str());
+    }
+  }
+  auto ptr = static_cast<int*>(buf.ptr);
   for (int i = 0; i < dsize[0]; ++i) {
     for (int j = 0; j < dsize[1]; ++j) {
       for (int k = 0; k < dsize[2]; ++k) {

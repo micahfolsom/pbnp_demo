@@ -19,21 +19,24 @@ I want to pass around. More info can be found [here](
 https://pybind11.readthedocs.io/en/stable/advanced/cast/stl.html?highlight=STL)
 .
 
-There are two key problems with this approach. First, is that a copy of the
-data is being made, which is slow. Second, and worse, is that you either need
-to extract the underlying buffer and copy it to your `numpy.ndarray` to
-get the `numpy` benefits, or you have to loop over the collection and
-copy each element into a pre-allocated array. Gross.
+This approach ends up being slow, since the vector's underlying data is
+copied when passed into python. You'll typically then perform another
+copy when converting to a `numpy` array. This is slow - we'd rather get
+a `numpy.ndarray` directly, and ideally, in a way that it knows to copy
+the reference to the underlying data, and not the data itself.
 
 This repo demonstrates how to build the `numpy` structured array in C++ and
-then pass it directly into python. This avoids the copy and results in very
-good performance. A single function call and then you've got a `numpy`
+then pass it directly into python. This avoids the copies and results in
+very good performance. A single function call and then you've got a `numpy`
 object, ready to go. Great!
 
 The test code is written to generate a sizeable chunk of data and benchmark
 passing it from C++ to python via the two different mechanisms.
 
+There's also a `Gadget` showing how to pass multidimensional `numpy` arrays
+both ways, from python to C++, and vice-versa.
+
 ## Instructions ##
 
 Install with `pip install --user .` from the base of this repo. Test with
-`python scripts/test.py`
+`python scripts/test_generator.py` or `python scripts/test_gadget.py`.

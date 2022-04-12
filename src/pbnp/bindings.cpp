@@ -35,10 +35,12 @@ PYBIND11_MODULE(pbnp_cpp, m) {
 
   // Gadget bindings
   py::class_<pbnp::Gadget> gadget(m, "Gadget");
-  gadget.def(py::init<int>())
+  gadget.def(py::init<int>(), py::arg("N") = 100)
       .def_property("data", &pbnp::Gadget::get_data, &pbnp::Gadget::set_data)
       .def_property("data_2d", &pbnp::Gadget::get_data_2d,
                     &pbnp::Gadget::set_data_2d)
       .def_property("data_3d", &pbnp::Gadget::get_data_3d,
-                    &pbnp::Gadget::set_data_3d);
+                    &pbnp::Gadget::set_data_3d)
+      .def("get_data_2d_cmaj", &pbnp::Gadget::get_data_2d_cmaj)
+      .def("get_data_3d_cmaj", &pbnp::Gadget::get_data_3d_cmaj);
 }

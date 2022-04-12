@@ -66,7 +66,7 @@ class CMakeBuild(build_ext):
                     cfg.upper(), extdir
                 )
             ]
-            if sys.maxsize > 2 ** 32:
+            if sys.maxsize > 2**32:
                 cmake_args += ["-A", "x64"]
             build_args += ["--", "/m"]
         else:
